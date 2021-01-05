@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon as CarbonCarbon;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use NewebPay;

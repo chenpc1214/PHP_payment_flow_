@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Services\PurchaseService;
 use NewebPay;
 
 class PurePurchaseController extends Controller
@@ -21,15 +22,13 @@ class PurePurchaseController extends Controller
         return view('pure_purchases.index')->with('products',$products);
     }
 
-    public function purchase()
+    public function purchase(Request $request)
     {
-        $newebpay = new NewebPay();
-        return $newebpay->payment(
-            Carbon::now()->timestamp,  // 訂單編號
-            999,                       // 交易金額
-            '測試用訂單l',              // 交易描述
-            'wtf1525852@gmail.com'     // 付款人信箱
-        )->submit();
+        $params=$request->all();
+        $product = Product::find($params['productId']);
+        $service=new PurchaseService(env('CASH_STORE_ID'),env('CASH_STORE_HASH_KEY'),env('CASH_STORE_HASH_IV'));
+        $result=$service->getPayload($product,$params['method']);
+        dd($result);
     }
 
     public function successRedirect()
