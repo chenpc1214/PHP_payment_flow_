@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use App\Product;
 use NewebPay;
 
 class PurePurchaseController extends Controller
@@ -16,7 +17,8 @@ class PurePurchaseController extends Controller
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index()
     {
-        return view('pure_purchases.index');
+        $products = Product::all();
+        return view('pure_purchases.index')->with('products',$products);
     }
 
     public function purchase()
